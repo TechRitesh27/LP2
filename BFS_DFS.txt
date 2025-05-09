@@ -1,0 +1,41 @@
+# Graph definition
+graph = {
+    'A': ['B', 'C', 'E'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F', 'G'],
+    'D': ['B'],
+    'E': ['A', 'B', 'D'],
+    'F': ['C'],
+    'G': ['C']
+}
+
+# BFS Function
+def bfs(graph, start):
+    visited = []
+    queue = [start]
+    while queue:
+        node = queue.pop(0)
+        if node not in visited:
+            visited.append(node)
+            for neighbour in graph[node]:
+                if neighbour not in visited and neighbour not in queue:
+                    queue.append(neighbour)
+    return visited
+
+# DFS Function
+def dfs(graph, start):
+    visited = []
+    stack = [start]
+    while stack:
+        node = stack.pop()
+        if node not in visited:
+            visited.append(node)
+            for neighbour in reversed(graph[node]):
+                if neighbour not in visited:
+                    stack.append(neighbour)
+    return visited
+
+# Run both traversals
+start_node = 'A'
+print("BFS Traversal from", start_node, ":", bfs(graph, start_node))
+print("DFS Traversal from", start_node, ":", dfs(graph, start_node))
